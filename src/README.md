@@ -5,9 +5,7 @@ icon: house
 title: 博客主页
 bgImage : /gobg.png
 bgImageStyle :
-  background: |
-    
-    url('/gobg.png') no-repeat center center fixed
+  height: calc(113vh + 0.5rem)
   background-size: cover
   
 #heroImage: https://theme-hope-assets.vuejs.press/logo.svg
