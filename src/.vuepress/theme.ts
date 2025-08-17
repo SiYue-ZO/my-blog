@@ -8,12 +8,12 @@ export default hopeTheme({
   darkmode: "enable",
   author: {
     name: "SiYue",
-    url: "https://mister-hope.com",
+    url: "https://siyue.top",
   },
 
   logo: "/hero.jpg",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  repo: "https://github.com/SiYue-ZO/my-blog",
 
   docsDir: "src",
 
@@ -32,20 +32,14 @@ export default hopeTheme({
     description: "一只全栈大学生",
     intro: "/intro.html",
     medias: {
-      Baidu: "https://example.com",
-      BiliBili: "https://example.com",
+      
+      BiliBili: "https://space.bilibili.com/306427109",
       //Gitee: "https://example.com",
-      GitHub: "https://example.com",
+      GitHub: "https://github.com/SiYue-ZO",
       QQ: "https://example.com",
       Steam: "https://example.com",
       Twitter: "https://example.com",
-      Wechat: "https://example.com",
-      Youtube: "https://example.com",
-      Zhihu: "https://example.com",
-      VuePressThemeHope: {
-        icon: "https://theme-hope-assets.vuejs.press/logo.svg",
-        link: "https://theme-hope.vuejs.press",
-      },
+  
     },
   },
 
@@ -101,6 +95,12 @@ export default hopeTheme({
     tasklist: true,
     vPre: true,
 
+    highlighter: {
+      type: "shiki", // or "prismjs"
+
+      // shiki  选项
+      
+    },
     // 取消注释它们如果你需要 TeX 支持
     // math: {
     //   // 启用前安装 katex
@@ -158,6 +158,10 @@ export default hopeTheme({
       prefix: "fa6-solid:",
     },
 
+    slimsearch: {
+      indexContent:true,
+    },
+    
     // 如果你需要 PWA。安装 @vuepress/plugin-pwa 并取消下方注释
     // pwa: {
     //   favicon: "/favicon.ico",

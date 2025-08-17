@@ -1,6 +1,7 @@
 ---
 icon: circle-info
 cover: /intro.jpg
+
 ---
 
 
