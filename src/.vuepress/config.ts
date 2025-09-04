@@ -6,8 +6,8 @@ import metingPlugin from "vuepress-plugin-meting2";
 
 
 export default defineUserConfig({
-  base: "/my-blog/",//github
-  //base: "/",
+  //base: "/my-blog/",//github
+  base: "/",
 
   lang: "zh-CN",
   title: "肆月的博客",
@@ -15,8 +15,8 @@ export default defineUserConfig({
 
   theme,
 
-
-
+  //是否开启页面预拉取，如果服务器宽带足够，可改为 true，会提升其他页面加载速度
+  shouldPrefetch: true,
 
 
   plugins: [

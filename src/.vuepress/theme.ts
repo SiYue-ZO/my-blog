@@ -10,8 +10,10 @@ export default hopeTheme({
     name: "SiYue",
     url: "https://siyue.top",
   },
+  favicon:"/mygologo.png",
 
   logo: "/hero.jpg",
+  logoDark: "/hero.jpg",
 
   repo: "https://github.com/SiYue-ZO/my-blog",
 
@@ -24,7 +26,7 @@ export default hopeTheme({
   sidebar,
 
   // 页脚
-  footer: "默认页脚",
+  footer: "<a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备2025461146号</a>",
   displayFooter: true,
 
   // 博客相关
