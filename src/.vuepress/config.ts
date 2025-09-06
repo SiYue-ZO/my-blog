@@ -6,8 +6,8 @@ import metingPlugin from "vuepress-plugin-meting2";
 
 
 export default defineUserConfig({
-  //base: "/my-blog/",//github
-  base: "/",
+  base: "/my-blog/",//github
+  //base: "/",
 
   lang: "zh-CN",
   title: "肆月的博客",
