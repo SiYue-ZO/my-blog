@@ -1,12 +1,13 @@
 ---
 title: Vue.js 笔记
+date: 2025-09-07
 icon: vue
 category:
   - 笔记
   - 前端
 tag:
   - 前端
-  - vue.js
+  - vue
 ---
 
 ::: tip
@@ -126,7 +127,7 @@ MVVM 是 vue 实现**数据驱动视图**和**双向数据绑定**的核心原�
 
 ## vue 指令
 
-### v-text
+### v-text（纯文本）
 
 > 设置标签的文本值（textContent）
 
@@ -138,6 +139,11 @@ MVVM 是 vue 实现**数据驱动视图**和**双向数据绑定**的核心原�
   <h1 v-text="message+'???'"></h1>
 </div>
 ```
+渲染效果：
+><h1>她说：hello</h1>
+><h1>她说：hello???</h1>
+><h1>hello</h1>
+><h1>hello???</h1>
 
 将标签中的文本，都使用 `data` 的指定属性替换。
 
@@ -148,6 +154,21 @@ MVVM 是 vue 实现**数据驱动视图**和**双向数据绑定**的核心原�
 > 设置标签的 innerHTML
 
 与 `v-text` 类似，不过如果设置的文本为 html 内容会进行解析。
+```html
+<div id="app">
+  <h1 v-html="message"></h1>
+</div>
+```
+```jsx
+var app = new Vue({
+  el: "#app",
+  data: {
+    message: "<span style='color:red'>hello</span>",
+  },
+});
+```
+渲染效果：
+><h1><span style='color:red'>hello</span></h1>
 
 ### v-on 基础
 
@@ -209,17 +230,27 @@ var app = new Vue({
 });
 ```
 
+
+
 ### v-if
 
 > 根据表达值的真假，切换元素的显示和隐藏（操纵 dom 元素）
 
 与 `v-show` 类似，但操纵的是 dom 元素（在 dom 中添加或删除该标签）
+> **v-if不适合频繁修改元素，TA会从DOM中删除或添加元素**
 
 ::: info 如何选择 `v-show` 还是 `v-if` ？
 
 频繁切换的元素使用 `v-show` ，否则使用 `v-if`
 
 :::
+
+```jsx
+<p v-if="num < 100"></p>
+<p v-else-if="num >= 100 && num <1000"></p>
+<p v-else></p>
+```
+
 
 ### v-else
 
@@ -261,7 +292,7 @@ var app = new Vue({
   <img v-bind:title="imgtitle+'!!!'" />
   <img :class="isActive?'active':''" />
   <img :class="{active:isActive}" />
-  <!-- 对象的写法：active 是否生效，取决于 isActive 的值 -->
+  <!-- 对象的写法：active 是否生效，取决于 isActive 的值是否为真 -->
 </div>
 ```
 
@@ -273,12 +304,18 @@ var app = new Vue({
 ### v-for
 
 > 根据数据生成列表结构
-
+可遍历数组或对象
 ```html
 <div id="app">
   <ul>
-    <li v-for="item in arr" :title="item">{{ item }}</li>
-    <li v-for="(item, index) in arr">{{ index }}{{ item }}</li>
+    <li v-for="item in arr" :title="item">
+      {{ item }}
+    </li>
+    <!-- item 是数组中的每一项 -->
+    <!-- 第二个参数 index 是数组的索引 -->
+    <li v-for="(item, index) in arr">
+      {{ index }}{{ item }}
+    </li>
   </ul>
 </div>
 ```
@@ -399,6 +436,17 @@ var app = new Vue({
   },
 });
 ```
+> **v-model 修饰符**
+- `.lazy` 并非实时渲染，而是在失去焦点或按下回车后渲染
+- `.number` 将用户的输入值转为数值类型
+- `.trim` 自动过滤用户输入的首尾空格
+```jsx
+// 示例代码
+<input type="text" v-model.lazy="message" />
+<input type="text" v-model.number="age" />
+<input type="text" v-model.trim="username" />
+```
+
 
 ## vue 过滤器（vue2.x 内容）
 
@@ -1071,6 +1119,44 @@ watch: {
     },
 },
 ```
+
+watch 侦听器的使用场景：
+1. 发送请求：监听输入框的变化，发送请求获取数据。
+2. 数据校验：监听表单数据的变化，进行实时校验。
+3. 复杂逻辑处理：监听多个数据的变化，进行复杂的逻辑处理。
+
+watch 侦听器与计算属性的区别：
+1. 触发时机不同：
+   - watch 侦听器是基于数据变化而触发的，可以进行异步操作。
+   - 计算属性是基于依赖的响应式数据变化而计算得出的，始终是同步的。
+
+2. 用途不同：
+   - watch 侦听器适合处理复杂逻辑、异步操作等场景。
+   - 计算属性适合用于模板渲染，简化逻辑。
+
+watchEffect 自动侦听（vue3）：
+示例代码：
+
+```jsx
+import { watchEffect } from "vue";
+
+export default {
+  setup() {
+    const count = ref(0);
+
+    watchEffect(() => {
+      console.log(count.value);
+      if (count.value > 5) {
+        count.value = 0;
+      }
+    });
+    return { count };
+
+  },
+};
+```
+
+
 
 ### 组件的生命周期
 
