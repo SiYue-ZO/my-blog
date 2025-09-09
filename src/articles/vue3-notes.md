@@ -8,6 +8,7 @@ category:
 tag:
   - 前端
   - vue
+star: 1
 ---
 
 ::: tip
@@ -26,7 +27,7 @@ Vue (读音 /vjuː/，类似于  view) 是一套用于构建用户界面的渐�
 
 ## vue 简介
 
-![AYFU9u](http://timpcfan-site.cdn.bcebos.com/imgs/AYFU9u.png)
+
 
 官方给 vue 的定位是前端框架，因为它提供了构建用户界面的一整套解决方案（俗称 vue 全家桶）
 
@@ -59,9 +60,7 @@ MVVM 是 vue 实现**数据驱动视图**和**双向数据绑定**的核心原�
 - Model：当前页面渲染时所依赖的数据源
 - ViewModel：表示 vue 的实例，它是 MVVM 的核心，连接 View 与 Model
 
-![mZ91S3](http://timpcfan-site.cdn.bcebos.com/imgs/mZ91S3.png)
 
-![qF2xKn](http://timpcfan-site.cdn.bcebos.com/imgs/qF2xKn.png)
 
 ### vue 的版本
 
@@ -207,6 +206,85 @@ var app = new Vue({
   },
 });
 ```
+
+**修饰符**
+Vue 为 v-on 提供了事件修饰符，简化事件处理的代码
+1. 事件修饰符，包含以下：
+- `.stop` - 调用 event.stopPropagation()（阻止冒泡行为）
+- `.prevent` - 调用 event.preventDefault()（阻止默认行为）
+- `.capture` - 添加事件侦听器时使用 capture 模式（定义在外层组件上，以捕获的形式来触发事件）
+- `.self` - 只当事件是从侦听器绑定的元素本身触发时才触发回调（只有点他自己才会触发，而不受冒泡影响）
+- `.once` - 只触发一次回调
+- `.passive` - 以 { passive: true } 模式添加侦听器
+
+```html
+<!-- 单击事件将停止传递 -->
+<a @click.stop="doThis"></a>
+
+<!-- 提交事件将不再重新加载页面 -->
+<form @submit.prevent="onSubmit"></form>
+
+<!-- 修饰语可以使用链式书写 -->
+<a @click.stop.prevent="doThat"></a>
+
+<!-- 也可以只有修饰符 -->
+<form @submit.prevent></form>
+
+<!-- 仅当 event.target 是元素本身时才会触发事件处理器 -->
+<!-- 例如：事件处理器不来自子元素 -->
+<div @click.self="doThat">...</div>
+```
+**!tip**
+使用修饰符时需要注意调用顺序，因为相关代码是以相同的顺序生成的。因此使用 @click.prevent.self 会阻止元素及其子元素的所有点击事件的默认行为，而 @click.self.prevent 则只会阻止对元素本身的点击事件的默认行为。  
+
+
+2. 按键修饰符
+- `.enter` - 按下回车键时触发
+- `.tab` - 按下 Tab 键时触发
+- `.delete` - 按下删除键或退格键时触发（捕获“删除”和“退格”键）
+- `.esc` - 按下 Escape 键时触发
+- `.space` - 按下空格键时触发
+- `.up` - 按下向上方向键时触发
+- `.down` - 按下向下方向键时触发
+- `.left` - 按下向左方向键时触发
+
+```html
+<!-- Alt + Enter -->
+<input @keyup.alt.enter="clear" />
+
+<!-- Ctrl + 点击 -->
+<div @click.ctrl="doSomething">Do something</div>
+```
+
+`.exact `修饰符​
+`.exact `修饰符允许精确控制触发事件所需的系统修饰符的组合。
+```html
+<!-- 当按下 Ctrl 时，即使同时按下 Alt 或 Shift 也会触发 -->
+<button @click.ctrl="onClick">A</button>
+
+<!-- 仅当按下 Ctrl 且未按任何其他键时才会触发 -->
+<button @click.ctrl.exact="onCtrlClick">A</button>
+
+<!-- 仅当没有按下任何系统按键时触发 -->
+<button @click.exact="onClick">A</button>
+```
+3. 鼠标按键修饰
+- `.left` - 只当点击鼠标左键时触发
+- `.right` - 只当点击鼠标右键时触发
+- `.middle` - 只当点击鼠标中键时触发
+
+```html
+<!-- 仅当点击鼠标右键时触发 -->
+<button @click.right="onClick">A</button>
+```
+这些修饰符将处理程序限定为由特定鼠标按键触发的事件。
+
+但请注意，.left，.right 和 .middle 这些修饰符名称是基于常见的右手用鼠标布局设定的，但实际上它们分别指代设备事件触发器的“主”、”次“，“辅助”，而非实际的物理按键。因此，对于左手用鼠标布局而言，“主”按键在物理上可能是右边的按键，但却会触发 .left 修饰符对应的处理程序。又或者，触控板可能通过单指点击触发 .left 处理程序，通过双指点击触发 .right 处理程序，通过三指点击触发 .middle 处理程序。同样，产生“鼠标”事件的其他设备和事件源，也可能具有与“左”，“右”完全无关的触发模式。
+
+
+
+
+
 
 ### v-show
 
@@ -1010,7 +1088,7 @@ methods: {
 
 ### 组件上的 v-model
 
-![hQRD5V](http://timpcfan-site.cdn.bcebos.com/imgs/hQRD5V.png)
+
 
 v-model 是双向数据绑定指令，当需要**维护组件内外数据的同步**时，可以在组件上使用 v-model 指令。
 
@@ -1021,7 +1099,7 @@ v-model 是双向数据绑定指令，当需要**维护组件内外数据的同�
 
 #### 在组件上使用 v-model 的步骤
 
-![xb4bel](http://timpcfan-site.cdn.bcebos.com/imgs/xb4bel.png)
+
 
 ```jsx
 <template>
@@ -1193,15 +1271,10 @@ export default {
 2. 子 → 父
 3. 父 ↔  子
 
-![X1WYvK](http://timpcfan-site.cdn.bcebos.com/imgs/X1WYvK.png)
 
-![gRIHQf](http://timpcfan-site.cdn.bcebos.com/imgs/gRIHQf.png)
-
-![TktxFT](http://timpcfan-site.cdn.bcebos.com/imgs/TktxFT.png)
 
 #### 兄弟组件的数据共享
 
-![DWEqdA](http://timpcfan-site.cdn.bcebos.com/imgs/DWEqdA.png)
 
 ##### 1. 安装 mit
 
@@ -1263,21 +1336,16 @@ export default {
 
 可以使用 provide 和 inject 实现后代组件之间的数据共享。
 
-![5QQbjj](http://timpcfan-site.cdn.bcebos.com/imgs/5QQbjj.png)
 
-![dM8Wma](http://timpcfan-site.cdn.bcebos.com/imgs/dM8Wma.png)
 
 上述的方法不是响应式的，改变了父组件的值，子孙组件没有变化，要使用 computed 函数修改：
 
-![WLpXE4](http://timpcfan-site.cdn.bcebos.com/imgs/WLpXE4.png)
-
-![gPCKax](http://timpcfan-site.cdn.bcebos.com/imgs/gPCKax.png)
 
 #### vuex——终极的组件之间数据共享方案
 
 vuex 可以让组件之间的数据共享变得高效、清晰、且易于维护。
 
-![0HtmYq](http://timpcfan-site.cdn.bcebos.com/imgs/0HtmYq.png)
+
 
 创建一个共享的 store，存取数据都通过 store，实现不同组件之间的数据共享。
 
@@ -1290,7 +1358,7 @@ vuex 可以让组件之间的数据共享变得高效、清晰、且易于维护
 
 #### 如何全局配置 axios？
 
-![CwAmsY](http://timpcfan-site.cdn.bcebos.com/imgs/CwAmsY.png)
+
 
 ```jsx
 // main.js
@@ -1391,7 +1459,7 @@ methods: {
 
 :::
 
-![vZewR9](http://timpcfan-site.cdn.bcebos.com/imgs/vZewR9.png)
+
 
 可以把插槽认为是组件封装期间，为用户预留的**内容的占位符**。
 
@@ -1424,14 +1492,14 @@ methods: {
 
 如果在封装组件时需要预留多个插槽节点，则需要为每个`<slot>`插槽指定具体的 name 名称。这种带有具体名称的插槽叫做“具名插槽”。
 
-![nWdPi4](http://timpcfan-site.cdn.bcebos.com/imgs/nWdPi4.png)
+
 
 ::: info
 没有 name 名称的插槽会有隐含的名称叫做“default”
 
 :::
 
-![eGacvB](http://timpcfan-site.cdn.bcebos.com/imgs/eGacvB.png)
+
 
 ::: info
 `v-slot:`可以简写为`#`，即`v-slot:header` → `#header`
@@ -1440,7 +1508,7 @@ methods: {
 
 #### 作用域插槽
 
-![I0YDN5](http://timpcfan-site.cdn.bcebos.com/imgs/I0YDN5.png)
+
 
 省略了插槽的 props 属性的介绍，有缘再见吧。
 
@@ -1471,7 +1539,7 @@ vue 官方提供了 v-for, v-model 等常用的内置指令。除此之外，vue
 3. 前端路由监听到了 Hash 地址的变化
 4. 前端路由把当前 Hash 地址对应的组件渲染到浏览器中
 
-![HbwSnR](http://timpcfan-site.cdn.bcebos.com/imgs/HbwSnR.png)
+
 
 #### 实现简易的前端路由
 
@@ -1651,7 +1719,7 @@ const router = createRouter({  // 3.
 
 通过路由实现组件的嵌套展示，叫做嵌套路由。
 
-![um5ec9](http://timpcfan-site.cdn.bcebos.com/imgs/um5ec9.png)
+
 
 1. 声明子路由链接和子路由占位符（声明在子组件内部即可）
 
@@ -1778,7 +1846,7 @@ this.$router.push({
 
 导航守卫可以控制路由的访问权限。
 
-![iSrYhO](http://timpcfan-site.cdn.bcebos.com/imgs/iSrYhO.png)
+
 
 ### 如何声明全局导航守卫
 
@@ -1856,9 +1924,6 @@ npm run dev  # 启动项目
 
 ### vite 的基本使用
 
-![ZG3kP3](http://timpcfan-site.cdn.bcebos.com/imgs/ZG3kP3.png)
-
-![yITax7](http://timpcfan-site.cdn.bcebos.com/imgs/yITax7.png)
 
 #### vite 项目的运行流程
 

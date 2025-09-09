@@ -1,6 +1,6 @@
 ---
 title: Vite 笔记
-date: 2025-9-07
+date: 2025-09-07
 tags:
   - vite
   - 构建工具

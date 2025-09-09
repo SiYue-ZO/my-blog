@@ -2,7 +2,7 @@
 icon: circle-info
 cover: /intro.jpg
 star: true
-sticky: 1
+sticky: 10
 ---
 
 
